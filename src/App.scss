@@ -1,0 +1,236 @@
+.App {
+  text-align: center;
+}
+
+@mixin mobile{
+  @media (max-width: 930px){ 
+    @content;
+  }
+}
+
+@mixin pc{
+  @media (min-width: 931px){ //and (max-width: 1023px)
+    @content;
+  }
+}
+
+@mixin hover_transition_1($color_init, $color_trans, $opacity_init, $opacity_trans, $time) {
+  opacity: $opacity_init;
+  color: $color_init;
+  transition: $time;
+  &:hover{
+    color: $color_trans;
+    opacity: $opacity_trans;
+  }
+}
+
+.navbar {
+  display: flex;
+  flex-flow: row wrap;
+  //overflow:hidden;
+  white-space:nowrap;
+  background-color: black;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+
+  .dropdown{
+    position: absolute;
+    background-color: white;
+    top:100%;
+    left:0;
+    overflow:hidden;
+    z-index: 100;
+    width: 100%;
+    max-height: 0%;
+    transition: all 0.6s ease-in-out;
+
+    > div {
+      display: flex;
+      flex-flow: column nowrap;
+      > ul > a {
+        color: black;
+      }
+    }
+  }
+  .menus {
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 12px;
+    align-items: stretch;
+    padding-right: 20px;
+    margin: 0 0 0 auto;
+
+    ul {
+      padding: 10px;
+      margin: auto;
+
+      a {
+        @include hover_transition_1(white, blue, 1, 1, 0.5s);
+        text-decoration: none;
+      }
+    }
+  }
+  > :nth-child(2) {
+    @include mobile {display:none;}
+  }
+  > :nth-child(3) {
+    @include pc {display:none;}
+  }
+
+  > a{
+    @include hover_transition_1(0, 0, 1, 0.6, 0.5s);
+    img {
+      height: 30px;
+      padding: 20px;
+      pointer-events: none;
+    }
+  }
+}
+
+.about {
+  .titlesection {
+    > div {
+      padding: 60px 0px 60px 0px;
+    }
+    h3 {
+      color: blue;
+      font-size: 10px;
+      font-weight: normal;
+      letter-spacing: 1.4px;
+      margin: 0px 0px 12px 0px;
+    }
+    h2 {
+      font-size: 27px;
+      font-weight: normal;
+      margin: 0px;
+    }
+  }
+
+  > article {
+    img {
+      vertical-align: middle;
+      display: inline-block;
+      height: auto;
+      max-width: 95%;
+    }
+    .main {
+      display: inline-flex;
+      @include pc{ flex-flow: row wrap; }
+      @include mobile{ flex-flow: column wrap; }
+      padding: 20px 20px 60px 20px;
+      max-width: 1140px;
+      .left {
+        box-sizing: border-box;
+        flex: 0 1 50%;
+        padding: 20px 20px 20px 20px;
+        > .iframe_wrapper{
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%;
+          iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0px; 
+          }
+        }
+        > .caption_wrapper{
+          padding: 0px 0px 0px 12px;
+          border-left: 4px solid rgba(185, 185, 185, 0.521);
+          > p {
+            text-align: left;
+            font-size:11px;
+            letter-spacing: 0.15px;
+            line-height: 1.4em;
+            color: grey;
+          }
+        }
+        
+      }
+      .right {
+        box-sizing: border-box;
+        flex: 0 1 50%;
+        padding: 30px;
+        text-align: left;
+        word-wrap: break-word;
+        h2{
+          @include mobile{ text-align: center; }
+          font-size: 25px;
+          letter-spacing: 4.9px;
+        }
+        h3{
+          @include mobile{ text-align: center; }
+          font-size: 26px;
+          font-weight: bold;
+          margin-top: 0px;
+        }
+        h4{
+          @include mobile{ text-align: center; }
+          color: black;
+          font-weight: normal;
+          font-size: 14px;
+          letter-spacing: 0.1px;
+        }
+        p{
+          font-size: 13px;
+          letter-spacing: -0.3px;
+          line-height: 1.9;
+          color: grey;
+        }
+      }
+    }
+  }
+}
+
+.footer > div{
+  background-color: black;
+  display: flex;
+  flex-flow: column nowrap;
+  color: white;
+  font-size: 13px;
+  padding: 40px 0px;
+  > a > img {
+    width: 77px;
+    height: 26px;
+  }
+  > div {
+    margin: 20px 0px;
+    p {
+      margin: 2px 0px;
+    }
+  }
+  > .buttons {
+    margin: 0px 0px 10px 0px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
